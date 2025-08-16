@@ -119,7 +119,7 @@ export async function uploadScreenshots(
       uploadedScreenshots.push({
         name: screenshot.name,
         browser: screenshot.browser,
-        url: `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`,
+        url: `https://github.com/${owner}/${repo}/blob/${branch}/${filePath}?raw=true`,
       });
 
       logger.debug(`Created blob: ${blob.sha} for ${filePath}`);
