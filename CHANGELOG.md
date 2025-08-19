@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- Automatic Playwright browser caching between runs
+- Smart cache key generation based on Playwright version, OS, architecture, and browser selection
+- Automatic cache restoration and saving with fallback to fresh installation
+
+### Changed
+- Browser installation is now handled by a dedicated caching module
+- Improved error handling and logging for browser setup
+
 ## 1.1.0
 
 - Improve the layout of the comment posted on the PR
