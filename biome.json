@@ -14,7 +14,8 @@
       "*.js",
       "*.json",
       "!scripts/dev-test/test-event.json",
-      "!dist/**"
+      "!dist/**",
+      ".github/**/*.{json,yml,yaml}"
     ]
   },
   "formatter": {
