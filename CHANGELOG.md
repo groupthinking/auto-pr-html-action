@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1-beta](https://github.com/yoavf/auto-pr-screenshots-action/compare/v1.3.0-beta...v1.3.1-beta) (2025-08-24)
+
+
+### Bug Fixes
+
+* use latest version to get around version conflicts with npx ([45fb404](https://github.com/yoavf/auto-pr-screenshots-action/commit/45fb4043104cfc0c8b492d35e53835109b937dbe))
+
 ## [1.3.0-beta](https://github.com/yoavf/auto-pr-screenshots-action/compare/v1.2.0-beta...v1.3.0-beta) (2025-08-19)
 
 ### Features
