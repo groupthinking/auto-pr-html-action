@@ -1,5 +1,5 @@
 {
-  "name": "playwright",
+  "name": "playwright-core",
   "version": "1.54.2",
   "description": "A high-level API to automate web browsers",
   "repository": {
@@ -10,7 +10,10 @@
   "engines": {
     "node": ">=18"
   },
-  "main": "index.js",
+  "author": {
+    "name": "Microsoft Corporation"
+  },
+  "license": "Apache-2.0",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -19,46 +22,23 @@
       "default": "./index.js"
     },
     "./package.json": "./package.json",
-    "./lib/common/configLoader": "./lib/common/configLoader.js",
-    "./lib/fsWatcher": "./lib/fsWatcher.js",
-    "./lib/program": "./lib/program.js",
-    "./lib/transform/babelBundle": "./lib/transform/babelBundle.js",
-    "./lib/transform/compilationCache": "./lib/transform/compilationCache.js",
-    "./lib/transform/esmLoader": "./lib/transform/esmLoader.js",
-    "./lib/transform/transform": "./lib/transform/transform.js",
-    "./lib/internalsForTest": "./lib/internalsForTest.js",
-    "./lib/plugins": "./lib/plugins/index.js",
-    "./jsx-runtime": {
-      "import": "./jsx-runtime.mjs",
-      "require": "./jsx-runtime.js",
-      "default": "./jsx-runtime.js"
-    },
-    "./lib/util": "./lib/util.js",
+    "./lib/outofprocess": "./lib/outofprocess.js",
+    "./lib/cli/program": "./lib/cli/program.js",
+    "./lib/remote/playwrightServer": "./lib/remote/playwrightServer.js",
+    "./lib/server": "./lib/server/index.js",
+    "./lib/server/utils/image_tools/stats": "./lib/server/utils/image_tools/stats.js",
+    "./lib/server/utils/image_tools/compare": "./lib/server/utils/image_tools/compare.js",
+    "./lib/server/utils/image_tools/imageChannel": "./lib/server/utils/image_tools/imageChannel.js",
+    "./lib/server/utils/image_tools/colorUtils": "./lib/server/utils/image_tools/colorUtils.js",
+    "./lib/server/registry/index": "./lib/server/registry/index.js",
+    "./lib/utils": "./lib/utils.js",
     "./lib/utilsBundle": "./lib/utilsBundle.js",
-    "./types/test": {
-      "types": "./types/test.d.ts"
-    },
-    "./types/testReporter": {
-      "types": "./types/testReporter.d.ts"
-    },
-    "./test": {
-      "types": "./test.d.ts",
-      "import": "./test.mjs",
-      "require": "./test.js",
-      "default": "./test.js"
-    }
+    "./lib/zipBundle": "./lib/zipBundle.js",
+    "./types/protocol": "./types/protocol.d.ts",
+    "./types/structs": "./types/structs.d.ts"
   },
   "bin": {
-    "playwright": "cli.js"
+    "playwright-core": "cli.js"
   },
-  "author": {
-    "name": "Microsoft Corporation"
-  },
-  "license": "Apache-2.0",
-  "dependencies": {
-    "playwright-core": "1.54.2"
-  },
-  "optionalDependencies": {
-    "fsevents": "2.3.2"
-  }
+  "types": "types/types.d.ts"
 }

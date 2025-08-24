@@ -29,22 +29,22 @@ jobs:
     permissions:
       contents: write      # Required for pushing screenshots
       pull-requests: write # Required for posting comments
-
+    
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
+      
       # Start your app (example)
       - run: npm install
       - run: npm run dev &
-
+      
       # Wait for your app to be ready
       - run: npx wait-on http://localhost:3000
-
+      
       - name: Take screenshots
         uses: yoavf/auto-pr-screenshots@v1
         with:
@@ -76,14 +76,14 @@ screenshots:
       width: 1440
       height: 900
     wait_for: '[data-testid="hero-section"]'
-
+    
   - name: home-mobile
     url: http://localhost:3000
     viewport:
       width: 390
       height: 844
       deviceScaleFactor: 3
-
+    
   - name: dashboard
     url: http://localhost:3000/dashboard
     viewport:
@@ -154,12 +154,6 @@ Available step types:
 - `wait`: Wait for milliseconds
 - `wait_for`: Wait for element
 
-## Performance Features
-
-### Browser Caching
-
-This action automatically caches Playwright browser binaries between runs. The caching works transparently without any configuration needed from users.
-
 ## Examples
 
 ### Next.js App
@@ -207,13 +201,13 @@ screenshots:
     viewport:
       width: 1440
       height: 900
-
+  
   - name: about
     url: http://localhost:3000/about
     viewport:
       width: 1440
       height: 900
-
+  
   - name: contact
     url: http://localhost:3000/contact
     viewport:
@@ -267,7 +261,7 @@ steps:
       selector: 'input[name="username"]'
       text: testuser
   - fill:
-      selector: 'input[name="password"]'
+      selector: 'input[name="password"]'  
       text: testpass
   - click: 'button[type="submit"]'
   - wait_for: '[data-testid="user-dashboard"]'

@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 import * as github from '@actions/github';
-import { ensureBrowsersInstalled } from './browser-cache';
 import { postComment } from './comment-poster';
 import { loadConfig } from './config-loader';
 import { detectFramework } from './framework-detector';
@@ -67,15 +67,25 @@ export async function run(): Promise<void> {
       failOnError,
     });
 
-    // Ensure Playwright browsers are installed (with automatic caching)
-    if (!process.env.LOCAL_TEST) {
+    // Install Playwright browsers if needed
+    if (!process.env.LOCAL_TEST && process.env.GITHUB_ACTIONS) {
+      logger.info('🎭 Installing Playwright browsers...');
       try {
         const browsersToInstall = browsers || 'chromium';
-        await ensureBrowsersInstalled(browsersToInstall);
+        // First, install playwright globally to ensure CLI is available
+        await exec.exec('npm', ['install', '-g', 'playwright']);
+
+        // Then install the browsers
+        await exec.exec('playwright', [
+          'install',
+          '--with-deps',
+          ...browsersToInstall.split(',').map((b) => b.trim()),
+        ]);
+        logger.success('✅ Playwright browsers installed');
       } catch (error) {
-        logger.error('Failed to setup Playwright browsers:', error);
+        logger.error('Failed to install Playwright browsers:', error);
         throw new Error(
-          `Failed to setup Playwright browsers: ${error instanceof Error ? error.message : String(error)}`,
+          'Failed to install Playwright browsers. This is required for screenshot capture.',
         );
       }
     }
