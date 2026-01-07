@@ -1,4 +1,4 @@
-# Auto PR HTML Action - Cursor Rules
+# Auto PR Screenshots - Cursor Rules
 
 ## Project Overview
 This is a GitHub Action that automatically captures and posts screenshots of web applications to pull requests. It uses Playwright for browser automation and supports multiple browsers (chromium, firefox, webkit).

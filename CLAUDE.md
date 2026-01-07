@@ -1,4 +1,4 @@
-# CLAUDE.md - Auto PR HTML Action
+# CLAUDE.md - Auto PR Screenshots
 
 ## Quick Reference
 
