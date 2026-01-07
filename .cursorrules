@@ -1,0 +1,70 @@
+# Auto PR HTML Action - Cursor Rules
+
+## Project Overview
+This is a GitHub Action that automatically captures and posts screenshots of web applications to pull requests. It uses Playwright for browser automation and supports multiple browsers (chromium, firefox, webkit).
+
+## Tech Stack
+- **Runtime**: Node.js 24
+- **Language**: TypeScript
+- **Build Tool**: @vercel/ncc
+- **Package Manager**: pnpm 10.15.0
+- **Testing**: Jest with ts-jest
+- **Linting**: Biome
+- **Browser Automation**: Playwright
+
+## Project Structure
+```
+src/
+├── index.ts              # Main entry point
+├── config-loader.ts      # YAML configuration loading
+├── framework-detector.ts # Auto-detect web frameworks
+├── screenshot-capture.ts # Playwright screenshot logic
+├── screenshot-uploader.ts # GitHub branch upload
+├── comment-poster.ts     # PR comment posting
+├── logger.ts             # Logging utilities
+└── types.ts              # TypeScript interfaces
+```
+
+## Code Style & Conventions
+
+### TypeScript
+- Use strict mode
+- Export types separately using `type` keyword
+- Use single quotes for strings
+- Add trailing commas
+- Max line width: 100 characters
+- Use 2 spaces for indentation
+
+### Error Handling
+- Always provide helpful error messages with context
+- Use the logger module for consistent output
+- Support `fail-on-error` flag for graceful degradation
+
+### GitHub Actions
+- All action inputs should have sensible defaults
+- Support both URL-based and config-file-based usage
+- Validate PR context before posting comments
+
+## Development Commands
+```bash
+pnpm install          # Install dependencies
+pnpm build            # Build with ncc
+pnpm test             # Run Jest tests
+pnpm lint             # Run Biome linter
+pnpm format           # Format code with Biome
+pnpm check            # Full lint + type check
+pnpm test:local       # Run local testing script
+```
+
+## Key Principles
+1. **Minimal Dependencies**: Only add dependencies when absolutely necessary
+2. **Helpful Logging**: Use emoji prefixes and clear messages
+3. **Graceful Degradation**: Support `fail-on-error: false` mode
+4. **Framework Detection**: Auto-detect popular frameworks when no config provided
+5. **Multi-Browser Support**: Test across chromium, firefox, webkit
+
+## When Making Changes
+1. Always run `pnpm check` before committing
+2. Update tests in `src/__tests__/` if behavior changes
+3. Rebuild dist with `pnpm build` after changes
+4. Test locally with `pnpm test:local` when possible

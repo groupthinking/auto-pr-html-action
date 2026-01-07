@@ -1,0 +1,59 @@
+---
+description: Testing standards using Jest
+globs: ["**/__tests__/**/*.ts", "**/*.test.ts", "**/*.spec.ts"]
+alwaysApply: false
+---
+
+# Testing Rules
+
+## Framework
+- Use Jest with ts-jest for TypeScript support
+- Place tests in `src/__tests__/` directory
+- Name test files as `*.test.ts`
+
+## Test Structure
+- Use descriptive test names that explain the behavior
+- Group related tests with `describe` blocks
+- Follow Arrange-Act-Assert pattern
+
+## Mocking
+- Mock external dependencies (@actions/core, @actions/github)
+- Use `jest.mock()` for module mocks
+- Reset mocks in `beforeEach` or `afterEach`
+
+## Assertions
+- Use specific matchers: `toEqual`, `toBe`, `toContain`
+- Test both success and error cases
+- Verify error messages are helpful
+
+## Example
+```typescript
+import { loadConfig } from '../config-loader';
+
+describe('loadConfig', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should load valid YAML configuration', async () => {
+    const config = await loadConfig('.github/screenshots.config.yml');
+    
+    expect(config).toBeDefined();
+    expect(config.version).toBe(1);
+    expect(config.screenshots).toBeInstanceOf(Array);
+  });
+
+  it('should throw error for invalid config', async () => {
+    await expect(loadConfig('nonexistent.yml'))
+      .rejects
+      .toThrow('Failed to load config');
+  });
+});
+```
+
+## Running Tests
+```bash
+pnpm test              # Run all tests
+pnpm test -- --watch   # Watch mode
+pnpm test -- --coverage # With coverage
+```
