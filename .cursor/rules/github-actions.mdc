@@ -1,0 +1,54 @@
+---
+description: GitHub Actions workflow standards
+globs: [".github/workflows/**/*.yml", ".github/workflows/**/*.yaml", "action.yml"]
+alwaysApply: false
+---
+
+# GitHub Actions Rules
+
+## Action Definition (action.yml)
+- Provide sensible defaults for all optional inputs
+- Use clear descriptions for each input
+- Specify `required: true` only when necessary
+- Use `node24` as the runtime
+
+## Workflow Files
+- Use `ubuntu-latest` for runners
+- Always pin action versions with `@v4`
+- Set appropriate permissions (minimum required)
+- Use `${{ secrets.GITHUB_TOKEN }}` for authentication
+
+## Required Permissions
+```yaml
+permissions:
+  contents: write       # For pushing screenshots
+  pull-requests: write  # For posting comments
+```
+
+## Input Handling in TypeScript
+```typescript
+const url = core.getInput('url');
+const skipComment = core.getInput('skip-comment') === 'true';
+const failOnError = core.getInput('fail-on-error') === 'true';
+```
+
+## Context Access
+```typescript
+import * as github from '@actions/github';
+
+const context = github.context;
+const prNumber = context.payload.pull_request?.number;
+const repo = context.repo;
+```
+
+## Error Handling
+- Use `core.setFailed()` for fatal errors
+- Use `core.warning()` for non-fatal issues
+- Support `fail-on-error: false` for graceful degradation
+
+## Building the Action
+```bash
+pnpm build  # Creates dist/index.js with ncc
+```
+
+Note: The `dist/` folder must be committed to the repo for the action to work.

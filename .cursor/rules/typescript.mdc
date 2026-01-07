@@ -1,0 +1,53 @@
+---
+description: TypeScript coding standards for this project
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+
+# TypeScript Rules
+
+## Code Style
+- Use single quotes for strings
+- Add trailing commas in arrays and objects
+- Use 2 spaces for indentation
+- Maximum line width: 100 characters
+- Use strict TypeScript mode
+
+## Type Definitions
+- Export types using `export type { TypeName }`
+- Define interfaces in `src/types.ts`
+- Use explicit return types on exported functions
+
+## Imports
+- Use Node.js `node:` prefix for built-in modules
+- Group imports: node builtins, external, internal
+- Use type-only imports when possible: `import type { X } from 'y'`
+
+## Error Handling
+- Always handle errors with proper typing
+- Use `error instanceof Error` check for safe message access
+- Provide helpful error messages with context
+
+## Async/Await
+- Prefer async/await over .then() chains
+- Always handle promise rejections
+- Use Promise.all for parallel operations
+
+## Example
+```typescript
+import { promises as fs } from 'node:fs';
+import * as core from '@actions/core';
+import { parse as parseYaml } from 'yaml';
+import type { Config } from './types';
+
+export async function loadConfig(path: string): Promise<Config> {
+  try {
+    const content = await fs.readFile(path, 'utf-8');
+    // parseYaml is from the 'yaml' package used in this project
+    return parseYaml(content) as Config;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to load config: ${message}`);
+  }
+}
+```
